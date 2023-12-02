@@ -6,22 +6,23 @@ fn main() {
     dbg!(output);
 }
 
-fn part1(input: &str) -> u32 {
-    //take nums out of str as arr of nums
+fn part1(input: &str) -> u32 {    
     input
         .lines()
         .map(|line| {
-            let nums = line.chars().filter(|c| c.is_numeric()).collect::<Vec<_>>();
-
-            let n: String = format!("{}{}", nums.first().unwrap(), nums.last().unwrap());
-                            
+            let mut nums = line.chars().filter(|c| c.is_numeric());
+            let mut n: String = "".into();
+            if let Some(f) = nums.next() {
+                let l = nums.last().unwrap_or(f);
+                n = format!("{}{}", f, l);
+            }
+                 
             n.parse::<u32>().unwrap()
         })
         .sum()
-
-    //0
 }
 
+#[cfg(test)]
 mod tests {
     use super::*;
 
